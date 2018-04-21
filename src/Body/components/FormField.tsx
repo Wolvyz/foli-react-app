@@ -1,15 +1,18 @@
 import * as React from 'react';
 
+import ResponseList from './ResponseList';
+
 import './FormField.css';
 
 interface IState {
-    stopId: number
+    stopId: number,
+    getResponse: boolean
 }
 
 class FormField extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
-        this.state = {stopId: 0};
+        this.state = {stopId: 0, getResponse: false};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,13 +23,13 @@ class FormField extends React.Component<{}, IState> {
     }
 
     public handleSubmit(event: any) {
-        alert('A name was submitted: ' + this.state.stopId);
         event.preventDefault();
+        this.setState({getResponse: true});
     }
 
     public render() {
         return (
-            <div className="Search-form">
+            <div className="Search">
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Bussipysäkin numero:
@@ -34,6 +37,7 @@ class FormField extends React.Component<{}, IState> {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
+                {this.state.getResponse ? <ResponseList stopId={this.state.stopId} /> : ''}
             </div>
         );
     }
