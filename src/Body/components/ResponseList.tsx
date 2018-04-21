@@ -28,20 +28,27 @@ class ResponseList extends React.Component<IProps, IState> {
     }
 
     public mapStops(stops) {
-        const stopArray = stops.map((stop, index) => ({key: index, value: stop.lineref, departure: moment.unix(stop.aimeddeparturetime).diff(moment(), 'minutes')}));
+        const stopArray = stops.map((stop, index) => {
+            const diff = moment.unix(stop.expecteddeparturetime).diff(moment(), 'minutes');
+            const departure = diff > 10 ? moment.unix(stop.expecteddeparturetime).format('HH:mm') : `${diff} min`;
+            return {key: index, value: stop.lineref, departure, realTime: stop.monitored.toString()}
+        });
+
+        // style={{marginRight: spacing + 'em'}} when using JSX.
         return stopArray.map((stop, index) => (
-            <List.Item key={stop.index}>
-                <List.Content floated="left">{stop.value}</List.Content>
-                <List.Content floated="right">{stop.departure} min</List.Content>
+            <List.Item style={stop.realTime === 'true' ? {color: 'green'} : {color: 'black'}} key={stop.index}>
+                <List.Content className="lineId" realtime={stop.realTime} floated="left">{stop.value}</List.Content>
+                <List.Content className="timeUntilDeparture" floated="right">{stop.departure}</List.Content>
             </List.Item>
         ));
     }
 
     public render() {
+        const stops = this.mapStops(this.state.stops);
         return (
             <div className="Response-list">
                 <List divided={true} verticalAlign = "middle">
-                {this.state.stops.length > 0 && this.mapStops(this.state.stops)}
+                    {stops}
                 </List>
             </div>
         );
