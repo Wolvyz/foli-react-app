@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { Button, Form } from 'semantic-ui-react'
 
 import ResponseList from './ResponseList';
 
-import './FormField.css';
+import './SearchComponent.css';
 
 interface IState {
     stopId: number,
@@ -30,13 +31,15 @@ class FormField extends React.Component<{}, IState> {
     public render() {
         return (
             <div className="Search">
-            <form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Field>
                 <label>
                     Bussipysäkin numero:
-                    <input type="text" value={this.state.stopId} onChange={this.handleChange} />
+                    <input type="text" value={this.state.stopId !== 0 ? this.state.stopId : ''} onChange={this.handleChange} />
                 </label>
-                <input type="submit" value="Submit" />
-            </form>
+                </Form.Field>
+                <Button type="submit">Hae lähtöjä</Button>
+            </Form>
                 <div className ="Search-response">{this.state.getResponse ? <ResponseList stopId={this.state.stopId} /> : ''}</div>
             </div>
         );
