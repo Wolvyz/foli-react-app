@@ -2,6 +2,7 @@ import * as React from 'react';
 import './App.css';
 
 import Body from './Body/Body';
+import FooterWrapper from './Footer/FooterWrapper';
 import HeaderWrapper from './Header/HeaderWrapper';
 
 class App extends React.Component {
@@ -10,6 +11,7 @@ class App extends React.Component {
       <div className="App">
         <HeaderWrapper />
         <Body />
+          <FooterWrapper />
       </div>
     );
   }
