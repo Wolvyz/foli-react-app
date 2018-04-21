@@ -37,7 +37,7 @@ class FormField extends React.Component<{}, IState> {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
-                <p>{this.state.getResponse ? <ResponseList stopId={this.state.stopId} /> : ''}</p>
+                <div className ="Search-response">{this.state.getResponse ? <ResponseList stopId={this.state.stopId} /> : ''}</div>
             </div>
         );
     }
