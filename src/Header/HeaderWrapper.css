@@ -1,0 +1,16 @@
+.Header-wrapper {
+    background-color: #222;
+    height: 200px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+.Header-wrapper .ui.large.header {
+    color:white !important;
+}
+
+.Header-wrapper .ui.medium.header {
+    color:white !important;
+    padding-bottom: 10px;
+}
