@@ -9,8 +9,8 @@ class HeaderWrapper extends React.Component {
     public render() {
         return (
             <div className="Header-wrapper">
-                <Header size="large">Pysäkkiaikataulut</Header>
-                <Header size="medium">Better than Föli</Header>
+                <Header size="huge">Pysäkkiaikataulut</Header>
+                <Header size="large">Better than Föli</Header>
                 <HeaderNavigation />
             </div>
         );
