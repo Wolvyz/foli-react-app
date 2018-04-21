@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as moment from 'moment';
 import * as React from 'react';
+import { List } from 'semantic-ui-react';
 
 import './ResponseList.css';
 
@@ -26,23 +27,25 @@ class ResponseList extends React.Component<IProps, IState> {
         axios.get(`http://data.foli.fi/siri/sm/${this.state.stopId}`).then(res => this.setState({stops: res.data.result}));
     }
 
-    public mapStops() {
-        const stopArray = this.state.stops.map((stop, index) => <ListItem key={index} value={stop.lineref} departure={stop.aimeddeparturetime} />);
-        return <ul>{stopArray}</ul>
+    public mapStops(stops) {
+        const stopArray = stops.map((stop, index) => ({key: index, value: stop.lineref, departure: moment.unix(stop.aimeddeparturetime).diff(moment(), 'minutes')}));
+        return stopArray.map((stop, index) => (
+            <List.Item key={stop.index}>
+                <List.Content floated="left">{stop.value}</List.Content>
+                <List.Content floated="right">{stop.departure} min</List.Content>
+            </List.Item>
+        ));
     }
 
     public render() {
         return (
             <div className="Response-list">
-                {this.state.stops.length > 0 && this.mapStops()}
+                <List divided={true} verticalAlign = "middle">
+                {this.state.stops.length > 0 && this.mapStops(this.state.stops)}
+                </List>
             </div>
         );
     }
 }
 
 export default ResponseList;
-
-function ListItem(props) {
-    const departureTime = moment.unix(props.departure).diff(moment(), 'minutes');
-    return <li className="List-item" key={props.key}>{props.value}, {departureTime}</li>;
-}

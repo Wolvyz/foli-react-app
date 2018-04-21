@@ -1,9 +1,5 @@
 .Response-list {
-    display: flex;
+    display: block;
     align-content: center;
     align-items: center;
-}
-
-.List-item {
-    text-align: left;
 }
