@@ -1,5 +1,7 @@
 .Response-list {
-    text-align: center;
+    display: flex;
+    align-content: center;
+    align-items: center;
 }
 
 .List-item {
