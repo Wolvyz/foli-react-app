@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import './FormField.css';
+
 interface IState {
     stopId: number
 }
@@ -24,6 +26,7 @@ class FormField extends React.Component<{}, IState> {
 
     public render() {
         return (
+            <div className="Search-form">
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Bussipysäkin numero:
@@ -31,6 +34,7 @@ class FormField extends React.Component<{}, IState> {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
+            </div>
         );
     }
 }
