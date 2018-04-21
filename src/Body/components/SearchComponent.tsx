@@ -34,7 +34,7 @@ class FormField extends React.Component<{}, IState> {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Field>
                 <label>
-                    Bussipysäkin numero:
+                    Pysäkin numero:
                     <input type="text" value={this.state.stopId !== 0 ? this.state.stopId : ''} onChange={this.handleChange} />
                 </label>
                 </Form.Field>
