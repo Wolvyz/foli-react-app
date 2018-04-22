@@ -44,8 +44,8 @@ export default MapComponent;
 
 const MyMapComponent = withGoogleMap<any>((props) =>
     <GoogleMap
-        defaultZoom={8}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
+        defaultZoom={12}
+        defaultCenter={{ lat: 60.4518126, lng: 22.2666302 }}
     >
         {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
     </GoogleMap>
