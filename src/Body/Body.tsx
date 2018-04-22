@@ -9,21 +9,23 @@ import './Body.css';
 class Body extends React.Component {
     public render() {
         return (
-            <div className="Body-wrapper">
-                <Container>
+            <div className ="Body">
+            <Container className="Body-wrapper">
                     <Grid>
                         <Grid.Row>
-                            <Grid.Column width={8}>
-                                <MapComponent />
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
+                        <div className="Map-element">
+                                <Grid.Column width={8}>
+                                    <MapComponent />
+                                 </Grid.Column>
+                        </div>
+                    <div className="Search-element">
                             <Grid.Column width={8}>
                                 <FormField />
                             </Grid.Column>
+                    </div>
                         </Grid.Row>
                     </Grid>
-                </Container>
+            </Container>
             </div>
         );
     }

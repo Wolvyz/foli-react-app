@@ -25,5 +25,9 @@
     "webpack",
     "jest",
     "src/setupTests.ts"
+  ],
+  "types": [
+    "googlemaps",
+    "markerclustererplus"
   ]
 }

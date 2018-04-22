@@ -5,3 +5,11 @@
 .Body-wrapper {
     text-align: center;
 }
+
+.Map-element {
+    margin: 50px 20px 0 20px;
+}
+
+.Search-element {
+    margin: 50px 20px 0 20px;
+}
