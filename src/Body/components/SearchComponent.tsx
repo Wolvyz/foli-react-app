@@ -1,19 +1,21 @@
+import axios from 'axios';
+import * as lodash from 'lodash';
 import * as React from 'react';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react';
 
 import ResponseList from './ResponseList';
 
 import './SearchComponent.css';
 
 interface IState {
-    stopId: number,
-    getResponse: boolean
+    stopId?: number,
+    stops: any[]
 }
 
 class FormField extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
-        this.state = {stopId: 0, getResponse: false};
+        this.state = {stops: []};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,10 +27,14 @@ class FormField extends React.Component<{}, IState> {
 
     public handleSubmit(event: any) {
         event.preventDefault();
-        this.setState({getResponse: true});
+        axios.get(`http://data.foli.fi/siri/sm/${this.state.stopId}`).then(res => {
+            const stops = res.data.result;
+            res.data.result && res.data.result.length > 0 ? this.setState({stops}) : this.setState({stops: []});
+        }).catch(err => this.setState({stops: []}));
     }
 
     public render() {
+        const stopId = lodash.get(this.state.stops, '0.value');
         return (
             <div className="Search">
             <Form onSubmit={this.handleSubmit}>
@@ -40,7 +46,7 @@ class FormField extends React.Component<{}, IState> {
                 </Form.Field>
                 <Button type="submit">Hae lähtöjä</Button>
             </Form>
-                <div className ="Search-response">{this.state.getResponse ? <ResponseList stopId={this.state.stopId} /> : ''}</div>
+                <div className ="Search-response"><ResponseList stops={this.state.stops} stopId={stopId} /></div>
             </div>
         );
     }
