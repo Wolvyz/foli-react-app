@@ -1,16 +1,22 @@
+import axios from 'axios';
 import * as React from 'react';
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 
 import './MapComponent.css';
 
-export interface IProps {
-    isMarkerShown: boolean
-}
-
-class MapComponent extends React.Component<{}, IProps> {
+class MapComponent extends React.Component<{}, {}> {
     constructor(props: any) {
         super(props);
 
+        this.state = {vehicleData: []};
+    }
+
+
+    public componentDidMount() {
+        axios.get('http://data.foli.fi/siri/vm/pretty').then(res => {
+            const vehicleData = res.data.result;
+            res.data.result && res.data.result.length > 0 ? this.setState({vehicleData}) : this.setState({vehicleData: []});
+        }).catch(err => this.setState({vehicleData: []}));
     }
 
     public render() {
