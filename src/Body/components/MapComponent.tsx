@@ -75,7 +75,7 @@ class MapComponent extends React.Component<any, any> {
 
     public createMarkers() {
         return this.state.stopData.map(stop => {
-            return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.name} />
+            return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.code} label={stop.code} />
         });
     }
 
