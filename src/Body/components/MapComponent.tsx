@@ -6,14 +6,14 @@ import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 import './MapComponent.css';
 
 interface IState {
-    vehicleData: any[]
+    stopData: any[]
 }
 
 class MapComponent extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
 
-        this.state = {vehicleData: []};
+        this.state = {stopData: []};
     }
 
     public componentDidMount() {
@@ -41,7 +41,7 @@ class MapComponent extends React.Component<{}, IState> {
         };
 
         axios.request(reqOptions).then(res => {
-            const vehicleDatas = lodash.get(res, 'data.data.stopsByRadius.edges', []).map(edge => {
+            const stopPositions = lodash.get(res, 'data.data.stopsByRadius.edges', []).map(edge => {
                 return {
                     code: edge.node.stop.code,
                     lat: edge.node.stop.lat,
@@ -51,8 +51,14 @@ class MapComponent extends React.Component<{}, IState> {
                     zoneId: edge.node.stop.zoneId
                 }
             });
-            vehicleDatas.length > 0 ? this.setState({vehicleData: vehicleDatas}) : this.setState({vehicleData: []});
-        }).catch(err => this.setState({vehicleData: []}));
+            stopPositions.length > 0 ? this.setState({stopData: stopPositions}) : this.setState({stopData: []});
+        }).catch(err => this.setState({stopData: []}));
+    }
+
+    public createMarkers() {
+        return this.state.stopData.map(stop => {
+            return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.name} />
+        });
     }
 
     public render() {
@@ -60,6 +66,7 @@ class MapComponent extends React.Component<{}, IState> {
             <div className="Map-component">
                 <MyMapComponent
                     isMarkerShown="true"
+                    markers={this.createMarkers()}
                     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={
@@ -86,9 +93,9 @@ export default MapComponent;
 
 const MyMapComponent = withGoogleMap<any>((props) =>
     <GoogleMap
-        defaultZoom={12}
+        defaultZoom={15}
         defaultCenter={{ lat: 60.4518126, lng: 22.2666302 }}
     >
-        {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+        {props.isMarkerShown && props.markers}
     </GoogleMap>
 );
