@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as lodash from 'lodash';
 import * as React from 'react';
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
+import { Button } from 'semantic-ui-react';
 
 import './MapComponent.css';
 
@@ -14,9 +15,10 @@ class MapComponent extends React.Component<{}, IState> {
         super(props);
 
         this.state = {stopData: []};
+        this.getStops = this.getStops.bind(this);
     }
 
-    public componentDidMount() {
+    public getStops() {
         const reqOptions = {
             url: 'https://api.digitransit.fi/routing/v1/routers/waltti/index/graphql',
             method: 'POST',
@@ -81,6 +83,7 @@ class MapComponent extends React.Component<{}, IState> {
                    }} />
                 }
                 />
+                <Button type="submit" onClick={this.getStops}>Hae pysäkkejä</Button>
             </div>
         );
     }
