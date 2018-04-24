@@ -6,16 +6,16 @@ import { Button } from 'semantic-ui-react';
 
 import './MapComponent.css';
 
-interface IState {
-    stopData: any[]
-}
+class MapComponent extends React.Component<any, any> {
+    private mapRef: any = React.createRef();
 
-class MapComponent extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
 
-        this.state = {stopData: []};
+        this.state = {stopData: [], center: {lat: 60.4518, lon: 22.2666}};
         this.getStops = this.getStops.bind(this);
+        this.handleMapMounted = this.handleMapMounted.bind(this);
+        this.handleCenterChanged = this.handleCenterChanged.bind(this);
     }
 
     public getStops() {
@@ -23,7 +23,7 @@ class MapComponent extends React.Component<{}, IState> {
             url: 'https://api.digitransit.fi/routing/v1/routers/waltti/index/graphql',
             method: 'POST',
             data: `{
-                stopsByRadius(lat:60.4518, lon:22.2666, radius:500) {
+                stopsByRadius(lat:${this.state.center.lat}, lon:${this.state.center.lon}, radius:500) {
                     edges {
                      node {
                        stop {
@@ -57,6 +57,22 @@ class MapComponent extends React.Component<{}, IState> {
         }).catch(err => this.setState({stopData: []}));
     }
 
+    public handleMapMounted(map) {
+        this.mapRef = map;
+    }
+
+
+    public handleCenterChanged() {
+        const lat = this.mapRef.getCenter().lat();
+        const lon = this.mapRef.getCenter().lng();
+        this.setState({
+            center: {
+                lat,
+                lon
+            }
+        });
+    }
+
     public createMarkers() {
         return this.state.stopData.map(stop => {
             return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.name} />
@@ -68,6 +84,9 @@ class MapComponent extends React.Component<{}, IState> {
             <div className="Map-component">
                 <MyMapComponent
                     markers={this.createMarkers()}
+                    onMapMounted={this.handleMapMounted}
+                    center={this.state.center}
+                    onCenterChanged={this.handleCenterChanged}
                     containerElement={
                     <div style={{
                         alignItems: 'center',
@@ -93,8 +112,10 @@ export default MapComponent;
 
 const MyMapComponent = withGoogleMap<any>((props) =>
     <GoogleMap
+        ref={props.onMapMounted}
         defaultZoom={15}
         defaultCenter={{ lat: 60.4518126, lng: 22.2666302 }}
+        onCenterChanged={props.onCenterChanged}
     >
         {props.markers}
     </GoogleMap>
