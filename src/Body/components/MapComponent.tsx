@@ -65,7 +65,6 @@ class MapComponent extends React.Component<{}, IState> {
         return (
             <div className="Map-component">
                 <MyMapComponent
-                    isMarkerShown="true"
                     markers={this.createMarkers()}
                     containerElement={
                     <div style={{
@@ -94,6 +93,6 @@ const MyMapComponent = withGoogleMap<any>((props) =>
         defaultZoom={15}
         defaultCenter={{ lat: 60.4518126, lng: 22.2666302 }}
     >
-        {props.isMarkerShown && props.markers}
+        {props.markers}
     </GoogleMap>
 );
