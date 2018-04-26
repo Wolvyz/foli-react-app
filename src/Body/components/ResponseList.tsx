@@ -4,21 +4,11 @@ import { List } from 'semantic-ui-react';
 
 import './styles/ResponseList.css';
 
-interface IProps {
-    stops: any[],
-    stopId?: number
-}
-
-interface IState {
-    stops: any[],
-    stopId?: number
-}
-
-class ResponseList extends React.Component<IProps, IState> {
-    constructor(props: IProps) {
+class ResponseList extends React.Component<any, any> {
+    constructor(props) {
         super(props);
         this.state = {
-            stops: props.stops,
+            stops: [],
             stopId: 0
         }
     }

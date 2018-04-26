@@ -10,15 +10,9 @@ class MapComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
-        this.state = {stopData: [], center: {lat: 60.4518, lon: 22.2666}};
+        this.state = {stops: this.props.stops, center: {lat: 60.4518, lon: 22.2666}};
         this.handleMapMounted = this.handleMapMounted.bind(this);
         this.handleDragEnded = this.handleDragEnded.bind(this);
-    }
-
-    public componentWillMount() {
-        getStops({lat: 60.4518, lon: 22.2666, radius: 500}).then(stopData => {
-            stopData.length > 0 ? this.setState({stopData}) : this.setState({stopData: []});
-        });
     }
 
     public handleMapMounted(map) {
@@ -41,7 +35,7 @@ class MapComponent extends React.Component<any, any> {
     }
 
     public createMarkers() {
-        return this.state.stopData.map(stop => {
+        return this.state.stops.map(stop => {
             return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.code} label={stop.code} />
         });
     }

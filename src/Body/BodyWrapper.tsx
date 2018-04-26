@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Container, Grid} from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 
-import MapComponent from './components/MapComponent';
-import FormField from './components/SearchComponent';
+import NearbyStopsWrapper from './components/NearbyStopsWrapper';
 
 import './BodyWrapper.css';
 
@@ -11,20 +10,9 @@ class Body extends React.Component {
         return (
             <div className ="Body">
             <Container className="Body-wrapper">
-                    <Grid>
-                        <Grid.Row>
                         <div className="Map-element">
-                                <Grid.Column width={8}>
-                                    <MapComponent />
-                                 </Grid.Column>
+                                    <NearbyStopsWrapper />
                         </div>
-                    <div className="Search-element">
-                            <Grid.Column width={8}>
-                                <SearchComponent />
-                            </Grid.Column>
-                    </div>
-                        </Grid.Row>
-                    </Grid>
             </Container>
             </div>
         );
