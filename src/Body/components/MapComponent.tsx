@@ -12,7 +12,7 @@ class MapComponent extends React.Component<any, any> {
 
         this.state = {stopData: [], center: {lat: 60.4518, lon: 22.2666}};
         this.handleMapMounted = this.handleMapMounted.bind(this);
-        this.handleCenterChanged = this.handleCenterChanged.bind(this);
+        this.handleDragEnded = this.handleDragEnded.bind(this);
     }
 
     public componentWillMount() {
@@ -26,7 +26,7 @@ class MapComponent extends React.Component<any, any> {
     }
 
 
-    public handleCenterChanged() {
+    public handleDragEnded() {
         const lat = this.mapRef.getCenter().lat();
         const lon = this.mapRef.getCenter().lng();
         this.setState({
@@ -53,7 +53,7 @@ class MapComponent extends React.Component<any, any> {
                     markers={this.createMarkers()}
                     onMapMounted={this.handleMapMounted}
                     center={this.state.center}
-                    onCenterChanged={this.handleCenterChanged}
+                    onDragEnd={this.handleDragEnded}
                     containerElement={
                     <div style={{
                         alignItems: 'center',
@@ -81,7 +81,7 @@ const MyMapComponent = withGoogleMap<any>((props) =>
         ref={props.onMapMounted}
         defaultZoom={15}
         defaultCenter={{ lat: 60.4518126, lng: 22.2666302 }}
-        onCenterChanged={props.onCenterChanged}
+        onDragEnd={props.onDragEnd}
     >
         {props.markers}
     </GoogleMap>
