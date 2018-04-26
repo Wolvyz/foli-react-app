@@ -1,9 +1,7 @@
-import axios from 'axios';
-import * as lodash from 'lodash';
 import * as React from 'react';
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
-import { Button } from 'semantic-ui-react';
 
+import getStops from './lib/NearbyStopsRequest'
 import './styles/MapComponent.css';
 
 class MapComponent extends React.Component<any, any> {
@@ -13,48 +11,14 @@ class MapComponent extends React.Component<any, any> {
         super(props);
 
         this.state = {stopData: [], center: {lat: 60.4518, lon: 22.2666}};
-        this.getStops = this.getStops.bind(this);
         this.handleMapMounted = this.handleMapMounted.bind(this);
         this.handleCenterChanged = this.handleCenterChanged.bind(this);
     }
 
-    public getStops() {
-        const reqOptions = {
-            url: 'https://api.digitransit.fi/routing/v1/routers/waltti/index/graphql',
-            method: 'POST',
-            data: `{
-                stopsByRadius(lat:${this.state.center.lat}, lon:${this.state.center.lon}, radius:500) {
-                    edges {
-                     node {
-                       stop {
-                           timezone
-                            code
-                            name
-                              lat
-                              lon
-                              zoneId
-                        }
-                      }
-                  }
-                }
-            } `,
-            timeout: 8000,
-            headers: {'Content-Type': 'application/graphql'}
-        };
-
-        axios.request(reqOptions).then(res => {
-            const stopPositions = lodash.get(res, 'data.data.stopsByRadius.edges', []).map(edge => {
-                return {
-                    code: edge.node.stop.code,
-                    lat: edge.node.stop.lat,
-                    lon: edge.node.stop.lon,
-                    name: edge.node.stop.name,
-                    timeZone: edge.node.stop.timezone,
-                    zoneId: edge.node.stop.zoneId
-                }
-            });
-            stopPositions.length > 0 ? this.setState({stopData: stopPositions}) : this.setState({stopData: []});
-        }).catch(err => this.setState({stopData: []}));
+    public componentWillMount() {
+        getStops({lat: 60.4518, lon: 22.2666, radius: 500}).then(stopData => {
+            stopData.length > 0 ? this.setState({stopData}) : this.setState({stopData: []});
+        });
     }
 
     public handleMapMounted(map) {
@@ -70,6 +34,9 @@ class MapComponent extends React.Component<any, any> {
                 lat,
                 lon
             }
+        });
+        getStops({lat, lon, radius: 500}).then(stopData => {
+            this.setState({stopData})
         });
     }
 
@@ -102,7 +69,6 @@ class MapComponent extends React.Component<any, any> {
                    }} />
                 }
                 />
-                <Button type="submit" onClick={this.getStops}>Hae pysäkkejä</Button>
             </div>
         );
     }
