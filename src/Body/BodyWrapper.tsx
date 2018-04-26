@@ -20,7 +20,7 @@ class Body extends React.Component {
                         </div>
                     <div className="Search-element">
                             <Grid.Column width={8}>
-                                <FormField />
+                                <SearchComponent />
                             </Grid.Column>
                     </div>
                         </Grid.Row>

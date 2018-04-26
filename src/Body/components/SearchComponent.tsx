@@ -12,7 +12,7 @@ interface IState {
     stops: any[]
 }
 
-class FormField extends React.Component<{}, IState> {
+class SearchComponent extends React.Component<{}, IState> {
     constructor(props: any) {
         super(props);
         this.state = {stops: []};
@@ -52,4 +52,4 @@ class FormField extends React.Component<{}, IState> {
     }
 }
 
-export default FormField;
+export default SearchComponent;
