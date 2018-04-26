@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
 
-import './ResponseList.css';
+import './styles/ResponseList.css';
 
 interface IProps {
     stops: any[],

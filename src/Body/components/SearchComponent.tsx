@@ -5,7 +5,7 @@ import { Button, Form } from 'semantic-ui-react';
 
 import ResponseList from './ResponseList';
 
-import './SearchComponent.css';
+import './styles/SearchComponent.css';
 
 interface IState {
     stopId?: number,

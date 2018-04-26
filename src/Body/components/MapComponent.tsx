@@ -4,7 +4,7 @@ import * as React from 'react';
 import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
 import { Button } from 'semantic-ui-react';
 
-import './MapComponent.css';
+import './styles/MapComponent.css';
 
 class MapComponent extends React.Component<any, any> {
     private mapRef: any = React.createRef();

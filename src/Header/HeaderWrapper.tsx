@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Header } from 'semantic-ui-react'
 
-import HeaderNavigation from './HeaderNavigation';
+import HeaderNavigation from './components/HeaderNavigation';
 
 import './HeaderWrapper.css';
 

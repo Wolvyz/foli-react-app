@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './HeaderNavigation.css';
+import './styles/HeaderNavigation.css';
 
 class HeaderNavigation extends React.Component {
     public render() {

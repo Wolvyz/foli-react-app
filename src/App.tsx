@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-import Body from './Body/Body';
+import Body from './Body/BodyWrapper';
 import FooterWrapper from './Footer/FooterWrapper';
 import HeaderWrapper from './Header/HeaderWrapper';
 

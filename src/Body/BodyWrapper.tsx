@@ -4,7 +4,7 @@ import { Container, Grid} from 'semantic-ui-react';
 import MapComponent from './components/MapComponent';
 import FormField from './components/SearchComponent';
 
-import './Body.css';
+import './BodyWrapper.css';
 
 class Body extends React.Component {
     public render() {
