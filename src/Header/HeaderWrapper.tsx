@@ -10,7 +10,6 @@ class HeaderWrapper extends React.Component {
         return (
             <div className="Header-wrapper">
                 <Header size="huge">Pysäkkiaikataulut</Header>
-                <Header size="large">Better than Föli</Header>
                 <HeaderNavigation />
             </div>
         );
