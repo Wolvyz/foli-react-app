@@ -37,19 +37,21 @@ class NearbyStopsWrapper extends React.Component<any, any> {
 
     public render() {
         return (
-            <Grid.Row>
-                <div className="Map-component">
-                    <Grid.Column width={8}>
-                        <MapComponent stops={this.state.stops} fetchStops={this.fetchStops}/>
-                    </Grid.Column>
-                </div>
-                <div className="List-component">
-                    <Grid.Column width={8}>
-                        <SearchComponent handleSubmit={this.handleSubmit}/>
-                        <ResponseList stops={this.state.stops}/>
-                    </Grid.Column>
-                </div>
-            </Grid.Row>
+            <Grid>
+                <Grid.Row>
+                    <div className="Map-component">
+                        <Grid.Column width={8}>
+                            <MapComponent stops={this.state.stops} fetchStops={this.fetchStops}/>
+                        </Grid.Column>
+                    </div>
+                    <div className="List-component">
+                        <Grid.Column width={8}>
+                            <SearchComponent handleSubmit={this.handleSubmit}/>
+                            <ResponseList stops={this.state.stops}/>
+                        </Grid.Column>
+                    </div>
+                </Grid.Row>
+            </Grid>
         );
     }
 }
