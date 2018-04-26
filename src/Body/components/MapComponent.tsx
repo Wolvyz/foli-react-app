@@ -30,7 +30,7 @@ class MapComponent extends React.Component<any, any> {
             }
         });
         getStops({lat, lon, radius: 500}).then(stopData => {
-            this.setState({stopData})
+            this.setState({stopData});
         });
     }
 

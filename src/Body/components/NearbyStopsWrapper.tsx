@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as moment from 'moment';
 import * as React from 'react';
 import { Grid} from 'semantic-ui-react';
 
@@ -36,18 +37,23 @@ class NearbyStopsWrapper extends React.Component<any, any> {
     }
 
     public render() {
+    const stops =  this.state.stops.map((stop, index) => {
+                const diff = moment.unix(stop.expecteddeparturetime).diff(moment(), 'minutes');
+                const departure = diff > 10 ? moment.unix(stop.expecteddeparturetime).format('HH:mm') : `${diff} min`;
+                return {key: index, value: stop.lineref, departure, realTime: stop.monitored.toString()}
+            });
         return (
             <Grid>
                 <Grid.Row>
                     <div className="Map-component">
                         <Grid.Column width={8}>
-                            <MapComponent stops={this.state.stops} fetchStops={this.fetchStops}/>
+                            <MapComponent stops={stops} fetchStops={this.fetchStops}/>
                         </Grid.Column>
                     </div>
                     <div className="List-component">
                         <Grid.Column width={8}>
                             <SearchComponent handleSubmit={this.handleSubmit}/>
-                            <ResponseList stops={this.state.stops}/>
+                            <ResponseList stops={stops}/>
                         </Grid.Column>
                     </div>
                 </Grid.Row>

@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import * as React from 'react';
 import { List } from 'semantic-ui-react';
 
@@ -13,18 +12,9 @@ class ResponseList extends React.Component<any, any> {
         }
     }
 
-    public mapStops(stops) {
-        return stops.map((stop, index) => {
-            const diff = moment.unix(stop.expecteddeparturetime).diff(moment(), 'minutes');
-            const departure = diff > 10 ? moment.unix(stop.expecteddeparturetime).format('HH:mm') : `${diff} min`;
-            return {key: index, value: stop.lineref, departure, realTime: stop.monitored.toString()}
-        });
-    }
-
     public render() {
-        const stops = this.mapStops(this.props.stops);
         const stopId = this.props.stopId;
-        const stopItems = stops.map(stop => (
+        const stops = this.props.stops.map(stop => (
                 <List.Item style={stop.realTime === 'true' ? {color: 'green'} : {color: 'black'}} key={stop.index}>
                     <List.Content className="lineId" realtime={stop.realTime} floated="left">{stop.value}</List.Content>
                     <List.Content className="timeUntilDeparture" floated="right">{stop.departure}</List.Content>
@@ -34,7 +24,7 @@ class ResponseList extends React.Component<any, any> {
             <div className="Response-list">
                 { stops.length > 0 ?
                     <List divided={true} verticalAlign="middle">
-                        {stopItems}
+                        {stops}
                     </List> :
                     (
                         <div className="No-results"><p>{stopId ? `Ei tuloksia linjalle ${stopId}` : ''}</p></div>
