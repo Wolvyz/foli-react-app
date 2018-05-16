@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { List } from 'semantic-ui-react';
+import {List} from 'semantic-ui-react';
 
 import './styles/ResponseList.css';
 
@@ -25,10 +25,10 @@ class ResponseList extends React.Component<any, any> {
             return {key: index, value: stop.lineref, departure, realTime: stop.monitored && stop.monitored.toString()}
         });
         const stops = newStops.map(stop => (
-                <List.Item style={stop.realTime === 'true' ? {color: 'green'} : {color: 'black'}} key={stop.index}>
-                    <List.Content className="lineId" realtime={stop.realTime} floated="left">{stop.value}</List.Content>
-                    <List.Content className="timeUntilDeparture" floated="right">{stop.departure}</List.Content>
-                </List.Item>
+            <List.Item style={stop.realTime === 'true' ? {color: 'green'} : {color: 'black'}} key={stop.index}>
+                <List.Content className="lineId" realtime={stop.realTime} floated="left">{stop.value}</List.Content>
+                <List.Content className="timeUntilDeparture" floated="right">{stop.departure}</List.Content>
+            </List.Item>
         ));
         return (
             <div className="Response-list">

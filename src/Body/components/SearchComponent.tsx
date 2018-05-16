@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import {Button, Form} from 'semantic-ui-react';
 
 import './styles/SearchComponent.css';
 
@@ -24,13 +24,14 @@ class SearchComponent extends React.Component<any, any> {
     public render() {
         return (
             <div className="Search">
-            <Form onSubmit={this.handleSubmit}>
-                <label>
-                    Pysäkin numero:
-                    <input type="text" value={this.state.stopId !== 0 ? this.state.stopId : ''} onChange={this.handleChange} />
-                </label>
-                <Button type="submit">Hae lähtöjä</Button>
-            </Form>
+                <Form onSubmit={this.handleSubmit}>
+                    <label>
+                        Pysäkin numero:
+                        <input type="text" value={this.state.stopId !== 0 ? this.state.stopId : ''}
+                               onChange={this.handleChange}/>
+                    </label>
+                    <Button type="submit">Hae lähtöjä</Button>
+                </Form>
             </div>
         );
     }

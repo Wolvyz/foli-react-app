@@ -6,15 +6,15 @@ import FooterWrapper from './Footer/FooterWrapper';
 import HeaderWrapper from './Header/HeaderWrapper';
 
 class App extends React.Component {
-  public render() {
-    return (
-      <div className="App">
-        <HeaderWrapper />
-        <Body />
-          <FooterWrapper />
-      </div>
-    );
-  }
+    public render() {
+        return (
+            <div className="App">
+                <HeaderWrapper />
+                <Body />
+                <FooterWrapper />
+            </div>
+        );
+    }
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GoogleMap, Marker, withGoogleMap } from "react-google-maps";
+import {GoogleMap, Marker, withGoogleMap} from "react-google-maps";
 
 import getStops from './lib/NearbyStopsRequest'
 import './styles/MapComponent.css';
@@ -36,7 +36,7 @@ class MapComponent extends React.Component<any, any> {
 
     public createMarkers() {
         return this.state.stops.map(stop => {
-            return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.code} label={stop.code} />
+            return <Marker position={{ lat: stop.lat, lng: stop.lon }} key={stop.code} label={stop.code}/>
         });
     }
 

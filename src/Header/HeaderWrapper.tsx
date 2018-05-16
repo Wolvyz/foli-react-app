@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header } from 'semantic-ui-react'
+import {Header} from 'semantic-ui-react'
 
 import HeaderNavigation from './components/HeaderNavigation';
 

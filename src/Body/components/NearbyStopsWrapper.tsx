@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as React from 'react';
-import { Grid} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 
 
 import MapComponent from './MapComponent';
@@ -13,7 +13,7 @@ class NearbyStopsWrapper extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
-          this.state = {
+        this.state = {
             mapStops: [],
             responseStops: []
         };
@@ -28,7 +28,7 @@ class NearbyStopsWrapper extends React.Component<any, any> {
 
     public fetchStops({lat, lon, radius}) {
         getStops({lat, lon, radius}).then(stops => {
-           return stops && stops.length > 0 ? this.setState({stops}) : this.setState({stops: []})
+            return stops && stops.length > 0 ? this.setState({stops}) : this.setState({stops: []})
         });
     }
 
