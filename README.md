@@ -10,6 +10,7 @@ Not very stylish, but it's working!
 - Realtime information (for departure time list)
 
 ## Todo
+- TYPINGS XD
 - Click stop marker on map to see departure times
 - Click a monitored departure time to see vehicle location
 - Eye candy
