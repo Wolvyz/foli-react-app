@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as moment from 'moment';
 import * as React from 'react';
 import { Grid} from 'semantic-ui-react';
 
@@ -14,13 +13,17 @@ class NearbyStopsWrapper extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
-        this.state = {
-          stops: [],
-            stopId: 0
+          this.state = {
+            mapStops: [],
+            responseStops: []
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fetchStops = this.fetchStops.bind(this);
+    }
+
+    public componentWillMount() {
+        this.fetchStops({lat: 60.4518, lon: 22.2666, radius: 800});
     }
 
     public fetchStops({lat, lon, radius}) {
@@ -31,29 +34,24 @@ class NearbyStopsWrapper extends React.Component<any, any> {
 
     public handleSubmit(stopId) {
         axios.get(`http://data.foli.fi/siri/sm/${stopId}`).then(res => {
-            const stops = res.data.result;
-            res.data.result && res.data.result.length > 0 ? this.setState({stops}) : this.setState({stops: []});
-        }).catch(err => this.setState({stops: []}));
+            const responseStops = res.data.result;
+            res.data.result && res.data.result.length > 0 ? this.setState({responseStops}) : this.setState({responseStops: []});
+        }).catch(err => this.setState({responseStops: []}));
     }
 
     public render() {
-    const stops =  this.state.stops.map((stop, index) => {
-                const diff = moment.unix(stop.expecteddeparturetime).diff(moment(), 'minutes');
-                const departure = diff > 10 ? moment.unix(stop.expecteddeparturetime).format('HH:mm') : `${diff} min`;
-                return {key: index, value: stop.lineref, departure, realTime: stop.monitored.toString()}
-            });
         return (
             <Grid>
                 <Grid.Row>
                     <div className="Map-component">
                         <Grid.Column width={8}>
-                            <MapComponent stops={stops} fetchStops={this.fetchStops}/>
+                            {this.state.stops ? <MapComponent stops={this.state.stops}/> : <p>Loading....</p>}
                         </Grid.Column>
                     </div>
                     <div className="List-component">
                         <Grid.Column width={8}>
                             <SearchComponent handleSubmit={this.handleSubmit}/>
-                            <ResponseList stops={stops}/>
+                            <ResponseList stops={this.state.responseStops}/>
                         </Grid.Column>
                     </div>
                 </Grid.Row>
