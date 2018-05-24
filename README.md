@@ -19,6 +19,7 @@ Not very stylish, but it's working!
 
 - Pull the repository
 - Install dependencies e.g `yarn install`
+- Set Google Maps API Key in `public/index.html`
 - Start the REPL dev server with e.g. `yarn start`
 
 Using [Digitransit API](https://digitransit.fi/en/developers/) and [Föli API](http://data.foli.fi/doc/index)
